@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Route::get('/idea', [DashboardController::class, 'index'])->name('idea.index');
-Route::post('/idea', [IdeaController::class, 'store'])->name('idea.crate');
+Route::post('/ideas', [IdeaController::class, 'store'])->name('ideas.store');
+
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
 
 Route::get('/profile', [ProfileController::class, 'index']);
 

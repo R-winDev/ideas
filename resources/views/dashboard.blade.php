@@ -46,6 +46,7 @@
                     @include('shared.idea-card')
                 </div>
             @endforeach
+            {{ $ideas->links() }}
         </div>
         <div class="col-3">
             <div class="card">

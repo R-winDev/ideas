@@ -11,28 +11,24 @@ use Illuminate\Support\Facades\Route;
 // here we define the routes of our website pages.
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-// Route::get('/idea', [DashboardController::class, 'index'])->name('idea.index');
-Route::post('/ideas', [IdeaController::class, 'store'])->name('ideas.store');
+Route::group(['prefix' => 'ideas', 'as' => 'ideas.'],function()
+{
+    Route::post('/', [IdeaController::class, 'store'])->name('store');
 
-Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
+    Route::get('/{idea}', [IdeaController::class, 'show'])->name('show');
 
-Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit');
+    Route::group(['middleware' => ['auth']],function()
+    {
+        Route::get('/{idea}/edit', [IdeaController::class, 'edit'])->name('edit');
 
-Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('ideas.update');
+        Route::put('/{idea}', [IdeaController::class, 'update'])->name('update');
 
-Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+        Route::delete('/{idea}', [IdeaController::class, 'destroy'])->name('destroy');
 
-Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('ideas.comments.store');
+        Route::post('/{idea}/comments', [CommentController::class, 'store'])->name('comments.store');
+    });
+});
 
-Route::get('/register', [AuthController::class, 'register'])->name('register');
-
-Route::post('/register', [AuthController::class, 'store']);
-
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-
-Route::post('/login', [AuthController::class, 'authenticate']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route::get('/profile', [ProfileController::class, 'index']);
 

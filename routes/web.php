@@ -1,12 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\TermsController;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -27,13 +24,16 @@ Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.
 
 Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('ideas.comments.store');
 
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/terms', [TermsController::class, 'index']);
+Route::post('/register', [AuthController::class, 'store']);
 
-Route::get('/login', [LoginController::class, 'index']);
+// Route::get('/profile', [ProfileController::class, 'index']);
 
-Route::get('/register', [RegisterController::class, 'index']);
+// Route::get('/terms', [TermsController::class, 'index']);
+
+// Route::get('/login', [LoginController::class, 'index']);
+
 
 
 

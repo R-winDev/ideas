@@ -14,9 +14,9 @@
                     @csrf
                     @method('delete')
                     @auth ()
-                    <a class="mx-2 btn btn-primary" href="{{ route('ideas.edit',$idea->id) }}">Edit</a>
+                    <a class="mx-2 btn btn-primary btn-sm" href="{{ route('ideas.edit',$idea->id) }}">Edit</a>
                     @endauth
-                    <a class="btn btn-primary" href="{{ route('ideas.show',$idea->id) }}">View</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route('ideas.show',$idea->id) }}">View</a>
                     @auth ()
                     <button class="btn btn-danger btn-sm">Delete</button>
                     @endauth
@@ -45,10 +45,7 @@
         </p>
         @endif
         <div class="d-flex justify-content-between">
-            <div>
-                <a href="#" class="fw-light nav-link fs-6"> <span class="fas fa-heart me-1">
-                    </span> {{ $idea->likes }} </a>
-            </div>
+            @include('ideas.shared.like-button')
             <div>
                 <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
                     {{ $idea->created_at }} </span>

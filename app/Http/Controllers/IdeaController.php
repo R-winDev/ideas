@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Idea;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class IdeaController extends Controller
 {
@@ -29,10 +30,7 @@ class IdeaController extends Controller
     public function destroy(Idea $idea)
     {
 
-        if (auth()->id() !== $idea->user_id)
-        {
-            abort(404);
-        }
+        Gate::authorize('idea.delete',$idea);
 
         $idea->delete();
 
@@ -42,10 +40,7 @@ class IdeaController extends Controller
     public function edit(Idea $idea)
     {
 
-        if (auth()->id() !== $idea->user_id)
-        {
-            abort(404);
-        }
+        Gate::authorize('idea.edit',$idea);
 
         $editing = true;
 
@@ -55,10 +50,7 @@ class IdeaController extends Controller
     public function update(Idea $idea)
     {
 
-        if (auth()->id() !== $idea->user_id)
-        {
-            abort(404);
-        }
+        Gate::authorize('idea.edit',$idea);
 
         $validated = request()->validate([
             'content' => 'required|min:3|max:255'
